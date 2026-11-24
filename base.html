@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pustaka Wisata - Peminjaman Buku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- Tambahkan CDN SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .orb {
+            position: fixed; border-radius: 50%; filter: blur(100px); z-index: -1;
+            animation: floatOrb 12s infinite ease-in-out;
+        }
+        .orb-blue { width: 400px; height: 400px; background: rgba(59, 130, 246, 0.25); top: -10%; left: -10%; }
+        .orb-purple { width: 500px; height: 500px; background: rgba(147, 51, 234, 0.25); bottom: -10%; right: -10%; animation-delay: -6s; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -50px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 min-h-screen text-white antialiased relative">
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-purple"></div>
+
+    <nav class="sticky top-0 z-50 bg-slate-900/50 backdrop-blur-lg border-b border-white/10 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-105 transition-transform duration-300">
+                Pustaka Wisata
+            </a>
+            <div class="space-x-6 text-sm font-semibold">
+                <a href="/wisatawan" class="hover:text-blue-400 transition-colors duration-300">Sumbang Buku</a>
+                <a href="/peminjam" class="hover:text-purple-400 transition-colors duration-300">Pinjam Buku</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-10 relative z-10">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Script Penangkap Flash Message Flask untuk SweetAlert -->
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3500,
+            timerProgressBar: true,
+            background: 'rgba(30, 41, 59, 0.9)',
+            color: '#fff',
+            iconColor: '#a855f7',
+            customClass: {
+                popup: 'backdrop-blur-md border border-white/10 rounded-xl'
+            },
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    Toast.fire({
+                        icon: '{{ category }}',
+                        title: '{{ message }}'
+                    });
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </script>
+</body>
+</html>
