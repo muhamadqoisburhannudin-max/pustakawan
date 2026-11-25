@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex flex-col lg:flex-row items-center justify-between min-h-[75vh] fade-in-up gap-12">
+    <!-- Kolom Teks -->
+    <div class="lg:w-1/2 text-left">
+        <div class="inline-block p-2 px-5 rounded-full bg-blue-500/10 border border-blue-500/30 mb-6 backdrop-blur-sm">
+            <span class="text-sm font-semibold text-blue-300">Eksplorasi Tanpa Batas 🚀</span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight drop-shadow-2xl leading-tight">
+            Pinjam Buku, <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Mulai Petualangan</span>
+        </h1>
+        <p class="text-lg text-gray-300 mb-10 leading-relaxed max-w-lg">
+            Sistem peminjaman buku modern. Wisatawan meninggalkan jejak pengetahuan, peminjam melanjutkan cerita. Temukan inspirasi di setiap halaman.
+        </p>
+
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="/peminjam" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-700 rounded-full font-bold text-white shadow-[0_0_20px_rgba(147,51,234,0.4)] hover:shadow-[0_0_30px_rgba(147,51,234,0.7)] transform hover:-translate-y-1 transition-all duration-300 text-center">
+                Cari Buku Sekarang
+            </a>
+            <a href="/wisatawan" class="px-8 py-4 bg-white/10 border border-white/20 hover:bg-white/20 rounded-full font-bold text-white backdrop-blur-md transform hover:-translate-y-1 transition-all duration-300 text-center">
+                Sumbangkan Buku
+            </a>
+        </div>
+    </div>
+
+    <!-- Kolom Animasi Lottie -->
+    <div class="lg:w-1/2 flex justify-center relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 blur-3xl rounded-full z-0"></div>
+        <lottie-player
+            src="https://assets2.lottiefiles.com/packages/lf20_hxart9lz.json"
+            background="transparent"
+            speed="1"
+            style="width: 100%; max-width: 500px; height: auto; position: relative; z-index: 10;"
+            loop
+            autoplay>
+        </lottie-player>
+    </div>
+</div>
+{% endblock %}
